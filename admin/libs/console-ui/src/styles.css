@@ -1,0 +1,238 @@
+/*
+ * The wireframe. Desktop-first FOR NOW: this build is a disposable wireframe
+ * pass to validate screens and flows, not the code the real app ships from
+ * (see the conversation this decision came from — the real build still owes
+ * NFR-UX-8, phone-up, once implementation for real starts).
+ *
+ * Style: warm ed-tech. Ubuntu for headings/chrome — Latin/Cyrillic/Greek
+ * only, no Devanagari/Tamil/Kannada, so it stays scoped to UI chrome (nav,
+ * buttons, headings) which is always English-authored here. Body copy and
+ * tables stay on Noto Sans/system-ui, which is what actually needs to carry
+ * Indic content (NFR-UX-6) — do not extend Ubuntu to those.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+:root {
+  --ink: #2b2420;
+  --ink-dim: #8c8074;
+  --ground: #fbf5ec;
+  --surface: #fffefb;
+  --line: #ece1d1;
+  --accent: #0d9488;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6f7f5;
+  --ok: #16a34a;
+  --warn: #c2650a;
+  --warn-bg: #fdf0dd;
+  --info-bg: #e6f7f5;
+  --font-display: "Ubuntu", "Noto Sans", system-ui, sans-serif;
+  --shadow-card: 0 1px 2px rgba(43, 36, 32, .04), 0 4px 12px rgba(43, 36, 32, .06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #app { min-height: 100%; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input { font: inherit; color: inherit; }
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; }
+
+.screen { max-width: 32rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.brand { font-family: var(--font-display); font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+
+/* ── Login ────────────────────────────────────────────────────────────────── */
+
+.screen--auth { min-height: 100vh; justify-content: center; }
+.screen--auth-wide { max-width: 54rem; }
+.screen--auth-wide h1 { font-size: 1.4rem; }
+
+.login-cards { display: flex; gap: 1rem; flex-wrap: wrap; }
+.login-card { flex: 1 1 15rem; }
+.login-card h2 { font-size: 1.1rem; }
+
+.auth-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 1.1rem;
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+}
+.auth-card h1 { font-size: 1.45rem; }
+
+.field { display: flex; flex-direction: column; gap: .35rem; font-size: .85rem; color: var(--ink-dim); }
+.field input {
+  padding: .7rem .9rem; border: 1px solid var(--line); border-radius: .7rem;
+  font-size: 1rem; color: var(--ink); background: var(--surface);
+}
+.field input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+form { display: flex; flex-direction: column; gap: .8rem; }
+
+.field-error { color: #b3261e; font-size: .85rem; }
+
+.divider { display: flex; align-items: center; gap: .75rem; color: var(--ink-dim); font-size: .8rem; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+
+.btn {
+  padding: .8rem 1.1rem; border-radius: .9rem; border: 1px solid transparent;
+  font-size: 1rem; font-weight: 700; font-family: var(--font-display); cursor: pointer; width: 100%;
+  transition: transform .06s ease, box-shadow .12s ease;
+}
+.btn--primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 2px 0 #0a7268; }
+.btn--primary:hover { filter: brightness(1.04); }
+.btn--primary:active { transform: translateY(1px); box-shadow: 0 1px 0 #0a7268; }
+.btn--google { background: var(--surface); border-color: var(--line); color: var(--ink); }
+.btn--ghost { background: transparent; border-color: var(--line); color: var(--ink-dim); width: auto; }
+
+/* ── Dashboard ────────────────────────────────────────────────────────────── */
+
+.topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.topbar h1 { font-size: 1.5rem; }
+
+.alerts { display: flex; flex-direction: column; gap: .5rem; }
+.alert { padding: .7rem .9rem; border-radius: .8rem; font-size: .9rem; }
+.alert--warn { background: var(--warn-bg); color: var(--warn); }
+.alert--info { background: var(--info-bg); color: var(--accent); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+  padding: 1.1rem; display: flex; flex-direction: column; gap: .7rem;
+}
+.card__head h2 { font-size: 1.1rem; }
+.muted { color: var(--ink-dim); font-size: .85rem; }
+.notice { font-size: .85rem; color: var(--warn); }
+
+.sessions { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.session-row {
+  display: flex; flex-direction: column; gap: .3rem;
+  padding: .7rem .8rem; border: 1px solid var(--line); border-radius: .8rem;
+}
+.session-row__main { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.session-row__code { color: var(--accent); font-weight: 700; }
+.session-row__name { font-weight: 600; }
+.session-row__meta { display: flex; justify-content: space-between; font-size: .8rem; color: var(--ink-dim); }
+
+/* ── Wider than a phone: still one column, just roomier ──────────────────── */
+
+@media (min-width: 48rem) {
+  .screen { padding-top: 3rem; }
+}
+
+/* ── Shell (desktop-first wireframe chrome) ──────────────────────────────── */
+
+.shell { display: flex; min-height: 100vh; align-items: stretch; }
+
+.shell__sidebar {
+  width: 15.5rem; flex: 0 0 auto; background: var(--surface); border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; padding: 1.1rem .9rem; gap: 1rem;
+}
+.shell__brand { font-family: var(--font-display); font-size: .95rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); }
+
+.role-switch { display: flex; flex-direction: column; gap: .3rem; font-size: .75rem; color: var(--ink-dim); }
+.role-switch select {
+  font: inherit; padding: .5rem .6rem; border: 1px solid var(--line); border-radius: .6rem;
+  background: var(--ground); color: var(--ink);
+}
+
+.shell__nav { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+.nav-section { display: flex; flex-direction: column; gap: .15rem; }
+.nav-section__title { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-dim); padding: .3rem .5rem 0; }
+.nav-item {
+  display: flex; align-items: center; gap: .5rem; text-align: left; background: none; border: none;
+  padding: .5rem .6rem; border-radius: .7rem; font-size: .88rem; font-weight: 500; color: var(--ink); cursor: pointer; width: 100%;
+}
+.nav-item:hover { background: var(--ground); }
+.nav-item.is-active { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.nav-item__code { font-size: .68rem; font-weight: 700; color: var(--ink-dim); min-width: 1.6rem; }
+.nav-item.is-active .nav-item__code { color: var(--accent); }
+.nav-item--disabled { color: var(--ink-dim); cursor: not-allowed; opacity: .5; }
+.nav-item--disabled:hover { background: none; }
+
+.shell__signout { margin-top: auto; }
+
+.shell__main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.shell__topbar {
+  display: flex; justify-content: space-between; align-items: center; padding: .8rem 1.75rem;
+  border-bottom: 1px solid var(--line); background: var(--surface);
+}
+.shell__user { font-weight: 700; font-size: .9rem; }
+.shell__content { flex: 1; padding: 1.75rem; overflow-x: auto; }
+
+/* ── Generic page layout for in-shell screens ────────────────────────────── */
+
+.page { max-width: 68rem; display: flex; flex-direction: column; gap: 1.25rem; }
+.page__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.page__head h1 { font-size: 1.4rem; }
+.page__desc { color: var(--ink-dim); font-size: .88rem; max-width: 46rem; }
+
+.toolbar { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+
+.btn--sm { width: auto; padding: .5rem .9rem; font-size: .85rem; box-shadow: none; }
+.btn--sm.btn--primary { box-shadow: 0 2px 0 #0a7268; }
+.btn--sm.btn--primary:active { box-shadow: 0 1px 0 #0a7268; }
+.btn--stop { background: #b3261e; color: #fff; box-shadow: 0 2px 0 #7f1b16; }
+
+/* ── Tables ───────────────────────────────────────────────────────────────── */
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); box-shadow: var(--shadow-card); }
+.table { width: 100%; border-collapse: collapse; font-size: .87rem; white-space: nowrap; }
+.table th, .table td { text-align: left; padding: .65rem .9rem; border-bottom: 1px solid var(--line); }
+.table thead th { color: var(--ink-dim); font-weight: 700; font-size: .72rem; text-transform: uppercase; letter-spacing: .03em; background: var(--ground); }
+.table__sortable { cursor: pointer; user-select: none; }
+.table__sortable:hover { color: var(--accent); }
+.table tbody tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: var(--ground); }
+.table tbody tr.is-active { background: var(--accent-soft); }
+
+/* ── Badges ───────────────────────────────────────────────────────────────── */
+
+.badge { display: inline-block; padding: .2rem .6rem; border-radius: 999px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+.badge--ok { background: #dcf5e6; color: var(--ok); }
+.badge--warn { background: var(--warn-bg); color: var(--warn); }
+.badge--stop { background: #fbe4e2; color: #b3261e; }
+.badge--muted { background: var(--ground); color: var(--ink-dim); }
+.badge--info { background: var(--info-bg); color: var(--accent); }
+
+/* ── Forms, wider than a phone ───────────────────────────────────────────── */
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.field select, .field textarea {
+  padding: .7rem .9rem; border: 1px solid var(--line); border-radius: .7rem;
+  font-size: 1rem; color: var(--ink); background: var(--surface); font-family: inherit;
+}
+.field textarea { resize: vertical; min-height: 5rem; }
+
+/* ── Misc ─────────────────────────────────────────────────────────────────── */
+
+.stack { display: flex; flex-direction: column; gap: .6rem; }
+.empty-state { color: var(--ink-dim); font-size: .85rem; padding: 1.5rem; text-align: center; }
+
+.bar-row { display: grid; grid-template-columns: 8rem 1fr 3rem; align-items: center; gap: .6rem; font-size: .85rem; }
+.bar-row__track { display: block; height: .6rem; border-radius: 999px; background: var(--ground); overflow: hidden; }
+.bar-row__fill { display: block; height: 100%; background: var(--accent); }
+.bar-row__fill.is-correct { background: var(--ok); }
+
+.kv { display: flex; flex-direction: column; gap: .5rem; }
+.kv__row { display: flex; justify-content: space-between; gap: 1rem; font-size: .88rem; padding: .4rem 0; border-bottom: 1px solid var(--line); }
+.kv__row:last-child { border-bottom: none; }
+.kv__row span:first-child { color: var(--ink-dim); }
+
+/* ── Tabs — a soft pill-track segmented control, not an underline ────────── */
+
+.tabs { display: inline-flex; gap: .2rem; background: var(--ground); border: 1px solid var(--line); border-radius: .9rem; padding: .3rem; flex-wrap: wrap; }
+.tabs__tab {
+  padding: .55rem 1rem; background: none; border: none; border-radius: .65rem;
+  font: inherit; font-family: var(--font-display); font-size: .85rem; font-weight: 700; color: var(--ink-dim); cursor: pointer;
+}
+.tabs__tab:hover { color: var(--ink); }
+.tabs__tab.is-active { color: var(--accent); background: var(--surface); box-shadow: var(--shadow-card); }
+.tab-panel { display: flex; flex-direction: column; gap: .9rem; padding-top: .3rem; }
